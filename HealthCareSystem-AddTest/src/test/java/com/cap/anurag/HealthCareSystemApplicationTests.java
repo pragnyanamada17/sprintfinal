@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -59,5 +60,14 @@ public class HealthCareSystemApplicationTests {
 		ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
 		Assert.assertNull(result);
 	}
+	@Test
+	public void testDeleteDiagnosticCentreListSuccess() throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+		final String baseUrl = "http://localhost:8033/Test/delete/db3d2b4b-571a-4ec8-9e97-848651a14f95";//Enter present id
+		URI uri = new URI(baseUrl);
+		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.DELETE, null, String.class);
+		Assert.assertEquals(200, result.getStatusCodeValue());
+	}
+
 
 }

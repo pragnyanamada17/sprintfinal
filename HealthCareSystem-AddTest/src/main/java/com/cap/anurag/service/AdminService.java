@@ -20,5 +20,7 @@ public interface AdminService {
 
 	void save(DiagnosticCentre centre);
 
+	void deleteTestById(String testId);
+
 
 }

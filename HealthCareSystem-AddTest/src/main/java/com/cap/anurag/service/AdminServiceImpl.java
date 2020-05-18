@@ -56,4 +56,10 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	@Override
+	public void deleteTestById(String testId) {
+		dao.delete(testId);
+		
+	}
+
 }

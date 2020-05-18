@@ -9,9 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,10 @@ public class AdminController {
 		test.setTestId(Integer.toString(rand.nextInt(1000)));
 
 		Tests test1 = null;
+		
+		if(test.getTestName().isEmpty()) {
+			throw new NullPointerException("TestName should not be null");
+		}
 
 		DiagnosticCentre a = service.findByCentreName(test.getCentre().getCentreName());
 		if (a != null) {
@@ -69,7 +74,14 @@ public class AdminController {
 		return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
 
 	}
+	
+	@DeleteMapping("/delete/{testId}")
+	public ResponseEntity<Boolean> deleteTestById(@PathVariable("testId") String testId) {
+		System.out.println(testId);
+		service.deleteTestById(testId);
+		return new ResponseEntity<Boolean>(true, new HttpHeaders(), HttpStatus.OK);
 
+	}
 	
 
 	@ExceptionHandler(RecordFoundException.class)

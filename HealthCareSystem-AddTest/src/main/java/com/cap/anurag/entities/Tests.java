@@ -9,7 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 @Table(name = "Health3")
 public class Tests {
